@@ -13,3 +13,11 @@ build
 .DS_Store
 .env
 npm-debug.log
+
+# IDE
+.vscode
+.idea
+
+# log
+deploy/log
+deploy/data
