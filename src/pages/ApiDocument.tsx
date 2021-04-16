@@ -1,10 +1,11 @@
 import React from "react";
 import { Table, Breadcrumb, Typography, Card, Spin } from "antd";
 
+import { Params } from "../common/type";
 import { getQueryParams } from "../common/utils";
 const { Title, Paragraph, Text } = Typography;
 
-function parseChildren(data, key) {
+function parseChildren(data: Array<Params>, key: string) {
   for (let val of data) {
     // 删除空的children，避免出现无效的 +
     if (val.children && val.children.length === 0) {
@@ -17,7 +18,7 @@ function parseChildren(data, key) {
   }
   return data;
 }
-function SceneMsg({ sceneMsg }) {
+function SceneMsg({ sceneMsg }: { sceneMsg: Array<Params> }): JSX.Element {
   const columns = [
     {
       title: "场景",
@@ -43,11 +44,11 @@ function SceneMsg({ sceneMsg }) {
     </>
   );
 }
-function ApiMsg({ apiMsg }) {
+function ApiMsg({ apiMsg }: { apiMsg: Array<Params> }): JSX.Element {
   return (
     <>
       <Title>API概要</Title>
-      {apiMsg.map((val, idx) => {
+      {apiMsg.map((val: Params, idx: number) => {
         return (
           <Paragraph key={idx}>
             <Text strong={false}>{val.text}:</Text>
@@ -59,7 +60,7 @@ function ApiMsg({ apiMsg }) {
   );
 }
 
-function RequestDemo({ requestDemo }) {
+function RequestDemo({ requestDemo }: { requestDemo: string }): JSX.Element {
   return (
     <>
       <Title>请求Demo</Title>
@@ -67,7 +68,7 @@ function RequestDemo({ requestDemo }) {
     </>
   );
 }
-function ResponseDemo({ responseDemo }) {
+function ResponseDemo({ responseDemo }: { responseDemo: string }): JSX.Element {
   return (
     <>
       <Title>响应Demo</Title>
@@ -75,7 +76,11 @@ function ResponseDemo({ responseDemo }) {
     </>
   );
 }
-function CheckSignDemo({ checkSignDemo }) {
+function CheckSignDemo({
+  checkSignDemo,
+}: {
+  checkSignDemo: string;
+}): JSX.Element {
   return (
     <>
       <Title>验签demo</Title>
@@ -83,7 +88,11 @@ function CheckSignDemo({ checkSignDemo }) {
     </>
   );
 }
-function EnterParameter({ enterParameter }) {
+function EnterParameter({
+  enterParameter,
+}: {
+  enterParameter: Array<Params>;
+}): JSX.Element {
   const columns = [
     {
       title: "参数名",
@@ -117,7 +126,11 @@ function EnterParameter({ enterParameter }) {
     </>
   );
 }
-function OuterParameter({ outerParameter }) {
+function OuterParameter({
+  outerParameter,
+}: {
+  outerParameter: Array<Params>;
+}): JSX.Element {
   const columns = [
     {
       title: "名称",
@@ -147,7 +160,7 @@ function OuterParameter({ outerParameter }) {
   );
 }
 
-function OutParams({ outParams }) {
+function OutParams({ outParams }: { outParams: Array<Params> }): JSX.Element {
   const columns = [
     {
       title: "错误码",
@@ -174,8 +187,43 @@ function OutParams({ outParams }) {
   );
 }
 function ApiDocument() {
-  const { scene_id, api_id } = getQueryParams();
-  const [data, setData] = React.useState({});
+  type DocumentSchema = {
+    sceneMsg: Array<Params>;
+    apiMsg: Array<Params>;
+    requestDemo: string;
+    responseDemo: string;
+    checkSignDemo: string;
+    enterParameter: {
+      list: Array<Params>;
+    };
+    outerParameter: {
+      list: Array<Params>;
+    };
+    outParams: {
+      errorCode: Array<Params>;
+    };
+  };
+  const { scene_id, api_id } = getQueryParams() as {
+    scene_id: string;
+    api_id: string;
+  };
+  const initDocument: DocumentSchema = {
+    sceneMsg: [],
+    apiMsg: [],
+    requestDemo: "",
+    responseDemo: "",
+    checkSignDemo: "",
+    enterParameter: {
+      list: [],
+    },
+    outerParameter: {
+      list: [],
+    },
+    outParams: {
+      errorCode: [],
+    },
+  };
+  const [data, setData] = React.useState<DocumentSchema>(initDocument);
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     const getData = () => {

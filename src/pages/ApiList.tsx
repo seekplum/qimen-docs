@@ -5,12 +5,17 @@ import { getQueryParams } from "../common/utils";
 
 const { Text } = Typography;
 
-const ApiList = function () {
+const ApiList = function (): JSX.Element {
+  type ListSchema = {
+    id: number;
+    name: string;
+    description: string;
+  };
   const columns = [
     {
       title: "API接口名称",
       dataIndex: "name",
-      render: (val, record) => {
+      render: (val: string, record: ListSchema) => {
         return (
           <Link to={`/document?scene_id=${scene_id}&api_id=${record.id}`}>
             {val}
@@ -24,8 +29,10 @@ const ApiList = function () {
     },
   ];
 
-  const { scene_id } = getQueryParams();
-  const [data, setData] = React.useState([]);
+  const { scene_id } = getQueryParams() as {
+    scene_id: string;
+  };
+  const [data, setData] = React.useState<Array<ListSchema>>([]);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {

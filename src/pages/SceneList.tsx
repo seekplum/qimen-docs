@@ -4,11 +4,16 @@ import { Link } from "react-router-dom";
 const { Title } = Typography;
 
 const SceneList = function () {
+  type SceneSchema = {
+    id: number;
+    name: string;
+    domin_name: string;
+  };
   const columns = [
     {
       title: "场景名称",
       dataIndex: "name",
-      render: (val, record) => {
+      render: (val: string, record: SceneSchema) => {
         return <Link to={`/api?scene_id=${record.id}`}>{val}</Link>;
       },
     },
@@ -18,7 +23,7 @@ const SceneList = function () {
     },
   ];
 
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState<Array<SceneSchema>>([]);
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     const getData = () => {

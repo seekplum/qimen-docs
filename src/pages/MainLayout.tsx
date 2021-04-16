@@ -5,7 +5,7 @@ import SceneList from "./SceneList";
 import ApiList from "./ApiList";
 import ApiDocument from "./ApiDocument";
 
-const MainLayout = function () {
+const MainLayout: React.FC = function () {
   return (
     <Switch>
       <Route path="/document" exact>
