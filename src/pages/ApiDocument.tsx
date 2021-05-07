@@ -115,14 +115,28 @@ function EnterParameter({
       key: "paramDes",
     },
   ];
+  const queryParams = enterParameter.filter((val) => val.httpType === 3);
+  const bodyParams = enterParameter.filter((val) => val.httpType !== 3);
   return (
     <>
-      <Title>请求参数</Title>
-      <Table
-        pagination={{ hideOnSinglePage: true }}
-        columns={columns}
-        dataSource={parseChildren(enterParameter, "paramId")}
-      />
+      {queryParams.length > 0 && (
+        <>
+          <Title>URL请求参数</Title>
+          <Table
+            pagination={{ hideOnSinglePage: true }}
+            columns={columns}
+            dataSource={parseChildren(queryParams, "paramId")}
+          />
+        </>
+      )}
+      <>
+        <Title>Body请求参数</Title>
+        <Table
+          pagination={{ hideOnSinglePage: true }}
+          columns={columns}
+          dataSource={parseChildren(bodyParams, "paramId")}
+        />
+      </>
     </>
   );
 }
