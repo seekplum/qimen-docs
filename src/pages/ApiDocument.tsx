@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Breadcrumb, Typography, Card, Spin } from "antd";
 
-import { Params } from "../common/type";
+import { AnyParams as Params } from "../common/type";
 import { getQueryParams } from "../common/utils";
 const { Title, Paragraph, Text } = Typography;
 

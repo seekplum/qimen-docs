@@ -1,4 +1,4 @@
-import { Params } from "./type";
+import { StringParams as Params } from "./type";
 
 export function getQueryParams(): Params {
   return window.location.search
