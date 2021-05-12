@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+  docs:
+    image: qimen_docs:${QIMEN_TAG}
+    build:
+      context: ../
+      dockerfile: deploy/Dockerfile
+      args:
+        QIMEN_DOWNLOAD_TOKEN: ${QIMEN_DOWNLOAD_TOKEN}
+        QIMEN_DOWNLOAD_COOKIE: ${QIMEN_DOWNLOAD_COOKIE}
+        QIMEN_DOWNLOAD_ONLY_ONLINE_DOC: ${QIMEN_DOWNLOAD_ONLY_ONLINE_DOC}
+    restart: on-failure
+    ports:
+      - 30005:80
+    volumes:
+      - ./data/images:/images
+      - yarn_cache:/root/.yarn_cache
+      - node_modules:/code/node_modules
+      - ./data/caddy/data:/data
+      - ./data/caddy/config:/config
+      - ./log/caddy:/var/log
+    environment:
+      TZ: Asia/Shanghai
+
+volumes:
+  yarn_cache:
+    name: yarn_cache_${QIMEN_TAG}
+    external: false
+  node_modules:
+    name: node_modules_${QIMEN_TAG}
+    external: false

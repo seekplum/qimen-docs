@@ -1,0 +1,27 @@
+{
+  auto_https off
+}
+
+:80 {
+  log {
+    level DEBUG
+    output file /var/log/access.log {
+      roll_size 1gb
+      roll_keep 5
+      roll_keep_for 720h
+    }
+  }
+
+  root * /usr/share/caddy/docs
+  file_server
+  encode gzip
+
+  @notApi not path /healthz
+  handle @notApi {
+    try_files {path} {path} index.html
+  }
+
+  route /healthz {
+    respond "OK"
+  }
+}

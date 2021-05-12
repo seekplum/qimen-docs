@@ -1,0 +1,18 @@
+.git/
+.gitignore
+.vscode/
+.idea/
+.github/
+deploy/
+public/data/
+build/
+node_modules/
+README.md
+config.json
+
+!deploy/download.py
+!deploy/Caddyfile
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/*.py[cod]
+**/*.log
