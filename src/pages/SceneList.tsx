@@ -1,6 +1,8 @@
 import React from "react";
 import { Table, Typography } from "antd";
 import { Link } from "react-router-dom";
+import { URL_PREFIX, ROUTES } from "../common/constants";
+
 const { Title } = Typography;
 
 const SceneList = function () {
@@ -14,7 +16,7 @@ const SceneList = function () {
       title: "场景名称",
       dataIndex: "name",
       render: (val: string, record: SceneSchema) => {
-        return <Link to={`/api?scene_id=${record.id}`}>{val}</Link>;
+        return <Link to={`${ROUTES.API}?scene_id=${record.id}`}>{val}</Link>;
       },
     },
     {
@@ -27,7 +29,7 @@ const SceneList = function () {
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     const getData = () => {
-      fetch("./data/scene_list.json", {
+      fetch(`${URL_PREFIX}/data/scene_list.json`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",

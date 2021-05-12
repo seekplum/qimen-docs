@@ -3,6 +3,8 @@ import { Table, Breadcrumb, Typography, Card, Spin } from "antd";
 
 import { AnyParams as Params } from "../common/type";
 import { getQueryParams } from "../common/utils";
+import { URL_PREFIX, ROUTES } from "../common/constants";
+
 const { Title, Paragraph, Text } = Typography;
 
 function parseChildren(data: Array<Params>, key: string) {
@@ -244,7 +246,7 @@ function ApiDocument() {
       if (!scene_id || !api_id) {
         return;
       }
-      fetch(`./data/${scene_id}/${api_id}.json`, {
+      fetch(`${URL_PREFIX}/data/${scene_id}/${api_id}.json`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -283,8 +285,8 @@ function ApiDocument() {
   return (
     <>
       <Breadcrumb separator=">">
-        <Breadcrumb.Item href="/scene">场景列表</Breadcrumb.Item>
-        <Breadcrumb.Item href={`/api?scene_id=${scene_id}`}>
+        <Breadcrumb.Item href={ROUTES.SCENE}>场景列表</Breadcrumb.Item>
+        <Breadcrumb.Item href={`${ROUTES.API}?scene_id=${scene_id}`}>
           API列表
         </Breadcrumb.Item>
         <Breadcrumb.Item>文档</Breadcrumb.Item>

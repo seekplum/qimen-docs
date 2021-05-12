@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Typography, Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
 import { getQueryParams } from "../common/utils";
+import { URL_PREFIX, ROUTES } from "../common/constants";
 
 const { Text } = Typography;
 
@@ -17,7 +18,9 @@ const ApiList = function (): JSX.Element {
       dataIndex: "name",
       render: (val: string, record: ListSchema) => {
         return (
-          <Link to={`/document?scene_id=${scene_id}&api_id=${record.id}`}>
+          <Link
+            to={`${ROUTES.DOCUMENT}?scene_id=${scene_id}&api_id=${record.id}`}
+          >
             {val}
           </Link>
         );
@@ -40,7 +43,7 @@ const ApiList = function (): JSX.Element {
       if (!scene_id) {
         return;
       }
-      fetch(`./data/api_list_${scene_id}.json`, {
+      fetch(`${URL_PREFIX}/data/api_list_${scene_id}.json`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -62,7 +65,7 @@ const ApiList = function (): JSX.Element {
   return (
     <>
       <Breadcrumb separator=">">
-        <Breadcrumb.Item href="/scene">场景列表</Breadcrumb.Item>
+        <Breadcrumb.Item href={ROUTES.SCENE}>场景列表</Breadcrumb.Item>
         <Breadcrumb.Item>API列表</Breadcrumb.Item>
       </Breadcrumb>
       {scene_id ? (

@@ -4,20 +4,21 @@ import { Switch, Route, Redirect } from "react-router";
 import SceneList from "./SceneList";
 import ApiList from "./ApiList";
 import ApiDocument from "./ApiDocument";
+import { ROUTES } from "../common/constants";
 
 const MainLayout: React.FC = function () {
   return (
     <Switch>
-      <Route path="/document" exact>
+      <Route path={ROUTES.DOCUMENT} exact>
         <ApiDocument />
       </Route>
-      <Route path="/api" exact>
+      <Route path={ROUTES.API} exact>
         <ApiList />
       </Route>
-      <Route path="/scene" exact>
+      <Route path={ROUTES.SCENE} exact>
         <SceneList />
       </Route>
-      <Redirect path="*" to="/scene" />
+      <Redirect path="*" to={ROUTES.SCENE} />
     </Switch>
   );
 };
